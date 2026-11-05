@@ -38,7 +38,7 @@ function validateCatalogMetadata(value) {
   if (!value || typeof value !== "object" || Array.isArray(value)) fail("Catalog metadata must be an object");
   if (!Number.isSafeInteger(value.version) || value.version <= 0) fail("Catalog version must be a positive integer");
   if (value.tag !== `v${value.version}`) fail("Catalog tag must match its numeric version");
-  if (value.source !== "AresValley/Artemis-DB") fail("Catalog source must be AresValley/Artemis-DB");
+  if (value.source !== "AresValley/Artemis-Database") fail("Catalog source must be AresValley/Artemis-Database");
   if (!/^[0-9a-f]{40}$/.test(value.sourceCommit ?? "")) fail("Catalog source commit must be a full Git commit SHA");
   if (!/^[0-9a-f]{64}$/.test(value.archiveSha256 ?? "")) fail("Catalog archive digest must be a SHA-256 hash");
   if (!Number.isSafeInteger(value.archiveBytes) || value.archiveBytes <= 0) fail("Catalog archive size must be a positive integer");
@@ -104,6 +104,16 @@ async function readExistingCount(outputPath) {
   }
 }
 
+async function readExistingVersion(outputPath) {
+  try {
+    const current = JSON.parse(await readFile(outputPath, "utf8"));
+    return Number.isSafeInteger(current?.version) ? current.version : null;
+  } catch (error) {
+    if (error?.code === "ENOENT") return null;
+    throw error;
+  }
+}
+
 async function atomicWrite(filePath, content) {
   await mkdir(path.dirname(filePath), { recursive: true });
   const temporaryPath = `${filePath}.tmp-${process.pid}`;
@@ -148,6 +158,16 @@ export async function updateCatalog({ upstreamDir, metadataPath, signalsOut, met
   const nextMetadata = { ...metadata, signalCount: signals.length };
   const signalsJson = `${JSON.stringify(signals, null, 2)}\n`;
   const metadataJson = `${JSON.stringify(nextMetadata, null, 2)}\n`;
+
+  const existingVersion = await readExistingVersion(metadataOut);
+  if (!check && existingVersion === metadata.version) {
+    try {
+      const currentSignals = await readFile(signalsOut, "utf8");
+      if (currentSignals !== signalsJson) fail(`Catalog records changed without a version increment from v${metadata.version}`);
+    } catch (error) {
+      if (error?.code !== "ENOENT") throw error;
+    }
+  }
 
   if (check) {
     const [currentSignals, currentMetadata] = await Promise.all([

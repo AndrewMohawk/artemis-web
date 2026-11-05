@@ -60,7 +60,7 @@ The application does not require D1, R2, KV, application secrets, or an authenti
 
 ## Automatic database releases
 
-The [`Update Artemis database`](.github/workflows/update-artemis-db.yml) workflow checks the official Artemis release metadata every hour. When AresValley publishes a newer Artemis-DB release, the workflow:
+The [`Update Artemis database`](.github/workflows/update-artemis-db.yml) workflow checks the official Artemis release metadata every hour. When AresValley publishes a newer Artemis-Database release, the workflow:
 
 1. requires the official release metadata and GitHub release to agree on the version, archive URL, byte size, and SHA-256 digest;
 2. downloads and verifies the release archive and its embedded SQLite database version;
@@ -84,7 +84,7 @@ This project exists because of the work of the original Artemis and signal-ident
 
 - [AresValley/Artemis](https://github.com/AresValley/Artemis) — the original desktop application and RF-identification workflow.
 - [Official Artemis documentation](https://aresvalley.github.io/Artemis/) and [AresValley website](https://aresvalley.com).
-- [AresValley/Artemis-DB](https://github.com/AresValley/Artemis-DB) — the SigID database used by Artemis.
+- [AresValley/Artemis-Database](https://github.com/AresValley/Artemis-Database) — the SigID database used by Artemis.
 - [Signal Identification Wiki](https://www.sigidwiki.com/wiki/Signal_Identification_Guide) — the community-maintained source material behind much of the catalog.
 
 The interface and web architecture in this repository are independently structured, while source and community-reference links remain visible throughout the application.
@@ -93,4 +93,4 @@ The interface and web architecture in this repository are independently structur
 
 The application code is distributed under the [GNU General Public License v3.0 or later](LICENSE).
 
-Artemis, Artemis-DB, the Signal Identification Wiki catalog, and linked media remain the work of their respective contributors and rightsholders. Artemis-DB does not currently include a separate repository-level license, so its catalog text and media must not be assumed to be relicensed by this project's GPL. Review the upstream terms and obtain any required permission before redistributing those materials.
+Artemis, Artemis-Database, the Signal Identification Wiki catalog, and linked media remain the work of their respective contributors and rightsholders. Artemis-Database does not currently include a separate repository-level license, so its catalog text and media must not be assumed to be relicensed by this project's GPL. Review the upstream terms and obtain any required permission before redistributing those materials.
