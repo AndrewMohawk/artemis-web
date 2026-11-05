@@ -154,7 +154,7 @@ const FullAbout = React.lazy(async () => ({
 const CATALOG_VERSION = catalogMetadata.version;
 const CATALOG_TAG = catalogMetadata.tag;
 const MEDIA_BASE =
-  `https://raw.githubusercontent.com/AresValley/Artemis-DB/${catalogMetadata.sourceCommit}/static`;
+  `https://raw.githubusercontent.com/AresValley/Artemis-Database/${catalogMetadata.sourceCommit}/static`;
 
 function formatEngineering(value: number, kind: "frequency" | "time" = "frequency") {
   if (kind === "time") {

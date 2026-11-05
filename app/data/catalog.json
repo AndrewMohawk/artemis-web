@@ -1,11 +1,11 @@
 {
   "version": 74,
   "tag": "v74",
-  "releasedAt": "2026-07-18T14:13:32Z",
-  "source": "AresValley/Artemis-DB",
-  "sourceCommit": "e54d5c32de6b5386d6f9db677c9cd3520a06f737",
-  "releaseUrl": "https://github.com/AresValley/Artemis-DB/releases/tag/v74",
-  "archiveUrl": "https://github.com/AresValley/Artemis-DB/releases/download/v74/v74.tar",
+  "releasedAt": "2026-11-03T18:52:07Z",
+  "source": "AresValley/Artemis-Database",
+  "sourceCommit": "31ef32cade8b6e8c643f2bc08c01cc86ce293d04",
+  "releaseUrl": "https://github.com/AresValley/Artemis-Database/releases/tag/v74",
+  "archiveUrl": "https://github.com/AresValley/Artemis-Database/releases/download/v74/v74.tar",
   "archiveSha256": "4ef66d5e0eddbc5430cc102f84de0489efd40b979bc6b78abdf259999d09d052",
   "archiveBytes": 302172160,
   "signalCount": 583

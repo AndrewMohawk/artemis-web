@@ -17,7 +17,7 @@ def sha256_file(path: str) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Verify an official Artemis-DB release archive")
+    parser = argparse.ArgumentParser(description="Verify an official Artemis-Database release archive")
     parser.add_argument("archive")
     parser.add_argument("--sha256", required=True)
     parser.add_argument("--bytes", required=True, type=int)
@@ -71,7 +71,7 @@ def main() -> None:
         raise SystemExit(f"Archive validation failed: {error}") from error
     if int(row[3]) != args.version:
         raise SystemExit(f"Archive database version mismatch: expected {args.version}, got {row[3]}")
-    print(f"Verified Artemis-DB archive v{args.version} ({actual_size} bytes, {actual_digest})")
+    print(f"Verified Artemis-Database archive v{args.version} ({actual_size} bytes, {actual_digest})")
 
 
 if __name__ == "__main__":

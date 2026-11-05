@@ -9,10 +9,10 @@ const metadata = {
   version: 75,
   tag: "v75",
   releasedAt: "2026-08-01T12:00:00Z",
-  source: "AresValley/Artemis-DB",
+  source: "AresValley/Artemis-Database",
   sourceCommit: "a".repeat(40),
-  releaseUrl: "https://github.com/AresValley/Artemis-DB/releases/tag/v75",
-  archiveUrl: "https://github.com/AresValley/Artemis-DB/releases/download/v75/v75.tar",
+  releaseUrl: "https://github.com/AresValley/Artemis-Database/releases/tag/v75",
+  archiveUrl: "https://github.com/AresValley/Artemis-Database/releases/download/v75/v75.tar",
   archiveSha256: "b".repeat(64),
   archiveBytes: 12345,
 };
@@ -72,6 +72,18 @@ test("catalog updater rejects a suspiciously large removal", async () => {
   try {
     await writeFile(files.signalsOut, `${JSON.stringify(Array.from({ length: 30 }, (_, index) => ({ pageid: String(index) })), null, 2)}\n`);
     await assert.rejects(updateCatalog(files), /Catalog shrank from 30 to 2/);
+  } finally {
+    await rm(files.root, { recursive: true, force: true });
+  }
+});
+
+test("catalog updater rejects record changes without a version increment", async () => {
+  const files = await fixture();
+  try {
+    await updateCatalog(files);
+    const changed = signal("10", "changed title");
+    await writeFile(path.join(files.upstreamDir, "10", "signal.json"), `${JSON.stringify(changed)}\n`);
+    await assert.rejects(updateCatalog(files), /Catalog records changed without a version increment from v75/);
   } finally {
     await rm(files.root, { recursive: true, force: true });
   }

@@ -9,7 +9,7 @@ type ReleaseResponse = {
   name?: string;
 };
 
-async function fetchRelease(repository: "Artemis" | "Artemis-DB") {
+async function fetchRelease(repository: "Artemis" | "Artemis-Database") {
   const response = await fetch(`${GITHUB_API}/${repository}/releases/latest`, {
     headers: {
       Accept: "application/vnd.github+json",
@@ -29,7 +29,7 @@ export async function GET() {
   try {
     const [application, database] = await Promise.all([
       fetchRelease("Artemis"),
-      fetchRelease("Artemis-DB"),
+      fetchRelease("Artemis-Database"),
     ]);
     return Response.json(
       {
